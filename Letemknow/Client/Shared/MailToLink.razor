@@ -1,0 +1,7 @@
+﻿@using System.Net;
+@inherits LinkComponent
+<a href="@LinkUri" class="btn btn-info">Open in your default mail application</a>
+@code {
+    private string LinkUri =>
+       $"mailto:{Mail?.Recipient}?subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+}

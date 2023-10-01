@@ -15,12 +15,12 @@ public class LinkController : Controller
         _contextFactory = contextFactory;
     }
 
-    [HttpGet("/{id}")]
-    public async Task<IActionResult> GetLink(string id, CancellationToken cancellationToken)
+    [HttpGet()]
+    public async Task<MailLink> GetLink(string id, CancellationToken cancellationToken)
     {
         using var ctx = await _contextFactory.CreateDbContextAsync(cancellationToken);
-        var link = await ctx.MailLinks.FindAsync(id);
-        return Redirect(CreateLinkUri(link));
+        var all = await ctx.MailLinks.ToListAsync();
+        return await ctx.MailLinks.FindAsync(id) ?? throw new KeyNotFoundException();
     }
 
     [HttpPost]
