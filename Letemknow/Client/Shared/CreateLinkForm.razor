@@ -52,3 +52,7 @@
 
     private string CreateId() => Base36.Encode(Math.Abs(Guid.NewGuid().GetHashCode()));
 }
+
+@if (!string.IsNullOrWhiteSpace(linkHref)) {
+    <img src="@($"https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={linkHref}")" />
+}
