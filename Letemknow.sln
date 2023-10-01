@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34004.107
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Letemknow.Server", "Letemknow\Server\Letemknow.Server.csproj", "{04FA8B80-4426-423A-9361-DF5AE45B2FBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Letemknow.Server", "Letemknow\Server\Letemknow.Server.csproj", "{04FA8B80-4426-423A-9361-DF5AE45B2FBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Letemknow.Client", "Letemknow\Client\Letemknow.Client.csproj", "{C5D4ED32-DDFF-460E-BCE8-4F8842E1D2E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Letemknow.Client", "Letemknow\Client\Letemknow.Client.csproj", "{C5D4ED32-DDFF-460E-BCE8-4F8842E1D2E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Letemknow.Shared", "Letemknow\Shared\Letemknow.Shared.csproj", "{027F0172-A222-4419-83BA-E08E715903DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Letemknow.Shared", "Letemknow\Shared\Letemknow.Shared.csproj", "{027F0172-A222-4419-83BA-E08E715903DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

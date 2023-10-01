@@ -32,6 +32,9 @@
     <div>
         <a href="@linkHref">@linkHref</a>
     </div>
+    <div>
+        <QRCode Link="linkHref" />
+    </div>
 }
 @code {
     private MailLink Model = new();
@@ -51,8 +54,4 @@
     }
 
     private string CreateId() => Base36.Encode(Math.Abs(Guid.NewGuid().GetHashCode()));
-}
-
-@if (!string.IsNullOrWhiteSpace(linkHref)) {
-    <img src="@($"https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={linkHref}")" />
 }
