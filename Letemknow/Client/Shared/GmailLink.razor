@@ -1,7 +1,8 @@
 ﻿@using System.Net;
 @inherits LinkComponent
-<a href="@LinkUri" class="btn btn-info">GMail</a>
+<a href="@LinkUri" class="btn btn-info" target="_blank">GMail</a>
 @code {
     private string LinkUri =>
-       $"mailto:{Mail?.Recipient}?subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+    $"https://mail.google.com/mail/?view=cm&fs=1&to={Mail?.Recipient}t&su={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+       
 }

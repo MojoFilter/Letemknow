@@ -33,9 +33,6 @@ public class LinkController : Controller
         return link;
     }
 
-    private string CreateLinkUri(MailLink link) =>
-        $"mailto:{link.Recipient}?subject={WebUtility.UrlEncode(link.Subject)}&body={WebUtility.UrlEncode(link.Body)}";
-
     private readonly IDbContextFactory<LEKContext> _contextFactory;
 
 

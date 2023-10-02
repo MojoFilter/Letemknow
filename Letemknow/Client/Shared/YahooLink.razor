@@ -1,8 +1,8 @@
 ﻿@using System.Net;
 @inherits LinkComponent
-<a href="@LinkUri" class="btn btn-info">Yahoo</a>
+<a href="@LinkUri" class="btn btn-info" target="_blank">Yahoo</a>
 @code {
     private string LinkUri =>
-       $"mailto:{Mail?.Recipient}?subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+    $"https://compose.mail.yahoo.com/?to={Mail?.Recipient}&subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
 }
 

@@ -1,7 +1,7 @@
 ﻿@using System.Net;
 @inherits LinkComponent
-<a href="@LinkUri" class="btn btn-info">GMail</a>
+<a href="@LinkUri" class="btn btn-info" target="_blank">Outlook</a>
 @code {
     private string LinkUri =>
-       $"mailto:{Mail?.Recipient}?subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+    $"https://outlook.office.com/mail/deeplink/compose?to={Mail?.Recipient}&subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
 }
