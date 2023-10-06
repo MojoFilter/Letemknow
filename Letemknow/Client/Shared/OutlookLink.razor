@@ -1,7 +1,9 @@
 ﻿@using System.Net;
+@using Letemknow.Shared;
 @inherits LinkComponent
+@inject ILinkBusiness Link
 <a href="@LinkUri" class="btn btn-info" target="_blank">Outlook</a>
 @code {
     private string LinkUri =>
-    $"https://outlook.office.com/mail/deeplink/compose?to={Mail?.Recipient}&subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+    $"https://outlook.office.com/mail/deeplink/compose?to={Mail?.Recipient}&subject={Link.Escape(Mail?.Subject ?? string.Empty)}&body={Link.Escape(Mail?.Body ?? string.Empty)}";
 }
