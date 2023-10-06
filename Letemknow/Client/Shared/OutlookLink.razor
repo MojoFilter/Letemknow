@@ -1,7 +1,15 @@
 ﻿@using System.Net;
 @inherits LinkComponent
-<a href="@LinkUri" class="btn btn-info" target="_blank">Outlook</a>
+@inject HttpClient Client
+@inject NavigationManager Navigation
+<a @onclick="OnClick" class="btn btn-info" target="_blank">Outlook</a>
 @code {
     private string LinkUri =>
     $"https://outlook.office.com/mail/deeplink/compose?to={Mail?.Recipient}&subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+
+    private async Task OnClick()
+    {
+        await Client.PostAsync("Track", default);
+        //Navigation.NavigateTo(LinkUri);
+    }
 }

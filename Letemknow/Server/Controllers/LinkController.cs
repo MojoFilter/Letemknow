@@ -1,8 +1,6 @@
 ﻿using Letemknow.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
-using System.Web;
 
 namespace Letemknow.Server.Controllers;
 
@@ -29,7 +27,6 @@ public class LinkController : Controller
         using var ctx = await _contextFactory.CreateDbContextAsync(cancellationToken);
         ctx.MailLinks.Add(link);
         await ctx.SaveChangesAsync();
-        var allofem = await ctx.MailLinks.ToListAsync();
         return link;
     }
 

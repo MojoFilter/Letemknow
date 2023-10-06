@@ -1,6 +1,5 @@
 ﻿using Letemknow.Shared;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Letemknow.Server;
 
@@ -12,4 +11,5 @@ public class LEKContext : DbContext
 
     public DbSet<MailLink> MailLinks { get; set; }
 
+    public DbSet<MailLinkClick> Clicks { get; set; }
 }
