@@ -32,7 +32,7 @@ public class TrackController : ControllerBase
 
     // POST api/<TrackController>
     [HttpPost]
-    public async Task Post()
+    public async Task Post(CancellationToken cancellationToken)
     {
         using var ctx = await _contextFactory.CreateDbContextAsync();
         var click = new MailLinkClick();
