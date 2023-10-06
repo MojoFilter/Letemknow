@@ -1,8 +1,10 @@
 ﻿@using System.Net;
+@using Letemknow.Shared;
 @inherits LinkComponent
+@inject ILinkBusiness Link
 <a href="@LinkUri" class="btn btn-info" target="_blank">GMail</a>
 @code {
     private string LinkUri =>
-    $"https://mail.google.com/mail/?view=cm&fs=1&to={Mail?.Recipient}t&su={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+    $"https://mail.google.com/mail/?view=cm&fs=1&to={Mail?.Recipient}t&su={Link.Escape(Mail?.Subject)}&body={Link.Escape(Mail?.Body)}";
        
 }

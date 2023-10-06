@@ -1,7 +1,9 @@
 ﻿@using System.Net;
+@using Letemknow.Shared;
 @inherits LinkComponent
+@inject ILinkBusiness Link
 <a href="@LinkUri" class="btn btn-info">Open in your default mail application</a>
 @code {
     private string LinkUri =>
-       $"mailto:{Mail?.Recipient}?subject={WebUtility.UrlEncode(Mail?.Subject)}&body={WebUtility.UrlEncode(Mail?.Body)}";
+       $"mailto:{Mail?.Recipient}?subject={Link.Escape(Mail?.Subject)}&body={Link.Escape(Mail?.Body)}";
 }
