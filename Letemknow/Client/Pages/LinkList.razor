@@ -1,0 +1,27 @@
+﻿@page "/list"
+@using Letemknow.Shared;
+@inject ITrackingClient Client
+@inject NavigationManager Navigation
+@inject ILinkBusiness linkBusiness
+<h3>The Links</h3>
+<div class="list-group">
+    @foreach (var link in _links)
+    {
+        <a href="@linkBusiness.GetLinkUri(Navigation.BaseUri, link)"
+           class="list-group-item list-group-item-action flex-column align-items-start">
+           <div class="d-flex w-100 justify-content-between">
+               <h5 class="mb-1">@link.Title</h5>
+               <small>@link.Created?.ToString("dd/MM/yyyy")</small>
+           </div>
+           <p class="mb-1">@link.Description</p>
+       </a>
+    }
+</div>
+@code {
+    private IEnumerable<MailLink>? _links;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _links = await Client.GetAllLinksAsync();
+    }
+}

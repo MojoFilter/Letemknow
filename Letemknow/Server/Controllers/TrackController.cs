@@ -16,25 +16,11 @@ public class TrackController : ControllerBase
         _contextFactory = contextFactory;
     }
 
-    // GET: api/<TrackController>
-    [HttpGet]
-    public IEnumerable<string> Get()
-    {
-        return new string[] { "value1", "value2" };
-    }
-
-    // GET api/<TrackController>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
-    // POST api/<TrackController>
     [HttpPost]
     public async Task Post(MailLinkClick click, CancellationToken cancellationToken)
     {
         click.Timestamp = DateTimeOffset.UtcNow;
+        click.Ip = HttpContext.Connection.RemoteIpAddress;
         using var ctx = await _contextFactory.CreateDbContextAsync();
         ctx.Clicks.Add(click);
         try
@@ -45,18 +31,6 @@ public class TrackController : ControllerBase
         {
             Debug.WriteLine(ex);
         }
-    }
-
-    // PUT api/<TrackController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
-
-    // DELETE api/<TrackController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
     }
 
     private readonly IDbContextFactory<LEKContext> _contextFactory;

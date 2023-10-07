@@ -11,4 +11,5 @@ public class MailLink
     public string? Body { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
+    public DateTimeOffset? Created { get; set; }
 }

@@ -25,7 +25,7 @@ namespace Letemknow.Client.Shared
 
         protected async Task OnClick()
         {
-            await Tracking.TrackMailToClick(ClickTarget.Outlook);
+            await Tracking.TrackMailToClickAsync(ClickTarget.Outlook);
             Navigation.NavigateTo(LinkUri);
         }
     }

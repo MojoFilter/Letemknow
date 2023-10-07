@@ -4,7 +4,8 @@ namespace Letemknow.Shared;
 
 public interface ITrackingClient
 {
-    Task TrackMailToClick(ClickTarget target, CancellationToken cancellationToken = default);
+    Task<IEnumerable<MailLink>?> GetAllLinksAsync(CancellationToken cancellationToken = default);
+    Task TrackMailToClickAsync(ClickTarget target, CancellationToken cancellationToken = default);
 }
 
 internal sealed class TrackingClient : ITrackingClient 
@@ -14,8 +15,12 @@ internal sealed class TrackingClient : ITrackingClient
         _client = client;
     }
 
-    public Task TrackMailToClick(ClickTarget target, CancellationToken cancellationToken = default) => 
+    public Task TrackMailToClickAsync(ClickTarget target, CancellationToken cancellationToken = default) => 
         _client.PostAsJsonAsync("Track", new MailLinkClick() { Target = target }, cancellationToken);
+
+    public Task<IEnumerable<MailLink>?> GetAllLinksAsync(CancellationToken cancellationToken = default) =>
+        _client.GetFromJsonAsync<IEnumerable<MailLink>>("Link/list", cancellationToken);
+    
 
     private readonly HttpClient _client;
 }
