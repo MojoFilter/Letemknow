@@ -1,13 +1,21 @@
-﻿namespace Letemknow.Shared;
+﻿using System.Net.Http.Json;
 
-public interface ITrackingClient { }
+namespace Letemknow.Shared;
+
+public interface ITrackingClient
+{
+    Task TrackMailToClick(ClickTarget target, CancellationToken cancellationToken = default);
+}
 
 internal sealed class TrackingClient : ITrackingClient 
 {
-    public async Task TrackMailToClick(CancellationToken cancellationToken)
+    public TrackingClient(HttpClient client)
     {
-        await _client.PostAsync("Track", default);
+        _client = client;
     }
 
-    private readonly HttpClient _client;    
+    public Task TrackMailToClick(ClickTarget target, CancellationToken cancellationToken = default) => 
+        _client.PostAsJsonAsync("Track", new MailLinkClick() { Target = target }, cancellationToken);
+
+    private readonly HttpClient _client;
 }

@@ -3,9 +3,30 @@ using Microsoft.AspNetCore.Components;
 
 namespace Letemknow.Client.Shared
 {
-    public class LinkComponent : ComponentBase
+    public abstract class LinkComponent : ComponentBase
     {
+
         [Parameter]
         public MailLink? Mail { get; set; }
+
+        [Inject]
+        public ILinkBusiness Link { get; set; }
+
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+
+        [Inject]
+        public ITrackingClient Tracking { get; set; }
+        
+        protected abstract string LinkUri { get; }
+
+        protected abstract ClickTarget Target { get; }
+
+
+        protected async Task OnClick()
+        {
+            await Tracking.TrackMailToClick(ClickTarget.Outlook);
+            Navigation.NavigateTo(LinkUri);
+        }
     }
 }

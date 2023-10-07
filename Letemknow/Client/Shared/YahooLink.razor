@@ -1,10 +1,11 @@
 ﻿@using System.Net;
 @using Letemknow.Shared;
 @inherits LinkComponent
-@inject ILinkBusiness Link
-<a href="@LinkUri" class="btn btn-info" target="_blank">Yahoo</a>
+<a @onclick="OnClick" class="btn btn-info" target="_blank">Yahoo</a>
 @code {
-    private string LinkUri =>
+    protected override string LinkUri =>
     $"https://compose.mail.yahoo.com/?to={Mail?.Recipient}&subject={Link.Escape(Mail?.Subject)}&body={Link.Escape(Mail?.Body)}";
+
+    protected override ClickTarget Target => ClickTarget.Yahoo;
 }
 

@@ -32,20 +32,19 @@ public class TrackController : ControllerBase
 
     // POST api/<TrackController>
     [HttpPost]
-    public async Task Post(CancellationToken cancellationToken)
+    public async Task Post(MailLinkClick click, CancellationToken cancellationToken)
     {
+        click.Timestamp = DateTimeOffset.UtcNow;
         using var ctx = await _contextFactory.CreateDbContextAsync();
-        var click = new MailLinkClick();
         ctx.Clicks.Add(click);
         try
         {
             ctx.SaveChanges();
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             Debug.WriteLine(ex);
         }
-        var existingClicks = await ctx.Clicks.ToListAsync();
-        Debug.WriteLine(existingClicks.Count);
     }
 
     // PUT api/<TrackController>/5
