@@ -1,13 +1,10 @@
 ﻿@page "/{linkId}"
 @using Letemknow.Shared;
-@inject HttpClient Client;
+@inject ILinkClient Client;
 
 <h2>@mailLink?.Title</h2>
 <h3>@mailLink?.Description</h3>
-<p><MailToLink Mail="@mailLink" /></p>
-<p><GmailLink Mail="@mailLink" /></p>
-<p><OutlookLink Mail="@mailLink" /></p>
-<p><YahooLink Mail="@mailLink" /></p>
+<MailLinkSet MailLink="@mailLink" />
 
 @code {
     [Parameter]
@@ -15,8 +12,8 @@
 
     private MailLink? mailLink;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        this.mailLink = await Client.GetFromJsonAsync<MailLink>($"Link?id={LinkId}");
+        this.mailLink = await Client.GetLinkAsync(LinkId);
     }
 }

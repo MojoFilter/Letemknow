@@ -1,0 +1,32 @@
+﻿@inject ITrackingClient Client
+<div>
+    Total Clicks: @_data?.TotalClicks
+</div>
+<table>
+    <tr>
+        <th scope="col">Link Type</th>
+        <th scope="col">Count</th>
+    </tr>
+    @if (_data?.TargetClicks is not null)
+    {
+        @foreach (var row in _data.TargetClicks)
+        {
+            <tr><td>@row.Target.Title()</td><td>@row.Clicks</td></tr>
+        }
+
+    }
+</table>
+@code {
+    [Parameter]
+    public MailLink? MailLink { get; set; }
+
+    private ClickStatData? _data = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (MailLink?.Id is string linkId)
+        {
+            _data = await Client.GetLinkStatsAsync(linkId);
+        }
+    }
+}

@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 namespace Letemknow.Server.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class LinkController : Controller
 {
-    public LinkController(IDbContextFactory<LEKContext> contextFactory)
+    public LinkController(IDbContextFactory<LEKContext> contextFactory, ITestDataGenerator testDataGenerator)
     {
         _contextFactory = contextFactory;
+        _testDataGenerator = testDataGenerator;
     }
 
     [HttpGet()]
@@ -37,7 +38,11 @@ public class LinkController : Controller
         return link;
     }
 
+    [HttpGet("gen")]
+    public MailLink Generate() => _testDataGenerator.CreateMail();
+
     private readonly IDbContextFactory<LEKContext> _contextFactory;
+    private readonly ITestDataGenerator _testDataGenerator;
 
 
 }

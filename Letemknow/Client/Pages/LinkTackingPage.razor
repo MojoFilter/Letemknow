@@ -1,0 +1,37 @@
+﻿@page "/{LinkId}/track"
+@using Letemknow.Shared;
+@inject ILinkClient Client
+@if (_link is { })
+{
+    <h3>@_link.Title</h3>
+    <ClickStats MailLink="@_link" />
+
+    <table>
+        <tr>
+        <th>Recipient</th>
+        <td>@_link.Recipient</td>
+    </tr>
+    <tr>
+        <th>Subject</th>
+        <td>@_link.Subject</td>
+    </tr>
+    <tr>
+        <th>Body</th>
+        <td>@_link.Body</td>
+    </tr>
+    </table>
+
+    <MailLinkSet MailLink="@_link" />
+}
+
+@code {
+    [Parameter]
+    public string? LinkId { get; set; }
+
+    private MailLink? _link;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _link = await Client.GetLinkAsync(LinkId);
+    }
+}

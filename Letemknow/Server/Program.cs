@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContextFactory<LEKContext>(opt => opt.UseSqlite("Data Source=lek.db"));
-
+builder.Services.AddTransient<IDeviceDetectorFactory, DeviceDetectorFactory>()
+                .AddTransient<ITestDataGenerator, TestDataGenerator>();
 var app = builder.Build();
 
 var dbFactory = app.Services.GetRequiredService<IDbContextFactory<LEKContext>>();

@@ -9,17 +9,11 @@ public class MailLinkClick
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public DateTimeOffset Timestamp { get; set; }
-
+    public required string LinkId { get; set; }
     public ClickTarget Target { get; set; }
     public IPAddress? Ip { get; set; }
+    public string? UserAgent {get;set;}
+    public string? Referrer { get; set; }
 
-    public MailLinkClick Create(DateTimeOffset timestamp) => new() { Timestamp = timestamp };
-}
-
-public enum ClickTarget
-{
-    MailClient,
-    Gmail,
-    Outlook,
-    Yahoo
+    //public MailLinkClick Create(DateTimeOffset timestamp) => new() { Timestamp = timestamp };
 }

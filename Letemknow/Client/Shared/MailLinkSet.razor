@@ -1,0 +1,12 @@
+﻿@using Letemknow.Shared;
+<p><MailToLink Mail="@MailLink" /></p>
+<p><GmailLink Mail="@MailLink" /></p>
+<p><OutlookLink Mail="@MailLink" /></p>
+<p><YahooLink Mail="@MailLink" /></p>
+
+@code {
+
+    [Parameter]
+    public MailLink? MailLink { get; set; }
+
+}

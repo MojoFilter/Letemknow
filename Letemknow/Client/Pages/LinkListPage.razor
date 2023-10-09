@@ -7,7 +7,7 @@
 <div class="list-group">
     @foreach (var link in _links)
     {
-        <a href="@linkBusiness.GetLinkUri(Navigation.BaseUri, link)"
+        <a href="@linkBusiness.GetTrackUri(Navigation.BaseUri, link)"
            class="list-group-item list-group-item-action flex-column align-items-start">
            <div class="d-flex w-100 justify-content-between">
                <h5 class="mb-1">@link.Title</h5>
@@ -18,7 +18,7 @@
     }
 </div>
 @code {
-    private IEnumerable<MailLink>? _links;
+    private IEnumerable<MailLink>? _links = Enumerable.Empty<MailLink>();
 
     protected override async Task OnInitializedAsync()
     {

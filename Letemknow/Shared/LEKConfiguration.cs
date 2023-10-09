@@ -6,5 +6,7 @@ public static class LEKConfiguration
 {
     public static IServiceCollection AddLEKClient(this IServiceCollection services) =>
         services.AddTransient<ILinkBusiness, LinkBusiness>()
-                .AddTransient<ITrackingClient, TrackingClient>();
+                .AddTransient<ITrackingClient, ApiClient>()
+                .AddTransient<ILinkClient, ApiClient>()
+                .AddTransient<IClientBusiness, ClientBusiness>();
 }

@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Letemknow.Server.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class TrackController : ControllerBase
 {
@@ -31,6 +31,31 @@ public class TrackController : ControllerBase
         {
             Debug.WriteLine(ex);
         }
+    }
+
+    [HttpGet("{linkId}")]
+    public async Task<ClickStatData> GetLinkStats(string linkId, CancellationToken cancellationToken)
+    {
+        using var ctx = await _contextFactory.CreateDbContextAsync(cancellationToken);
+        var stats = new ClickStatData();
+        stats.TotalClicks = await ctx.Clicks.Where(c => c.LinkId == linkId).CountAsync();
+        stats.TargetClicks = await this.TargetClicksAsync(linkId, cancellationToken);
+        return stats;
+    }
+
+    private Task<TargetClickCount[]> TargetClicksAsync(string linkId, CancellationToken cancellationToken) =>
+       Task.WhenAll(
+        GetTargetClicksAsync(linkId, ClickTarget.MailClient, cancellationToken),
+            GetTargetClicksAsync(linkId, ClickTarget.Gmail, cancellationToken),
+            GetTargetClicksAsync(linkId, ClickTarget.Outlook, cancellationToken),
+            GetTargetClicksAsync(linkId, ClickTarget.Yahoo, cancellationToken));
+    
+
+    private async Task<TargetClickCount> GetTargetClicksAsync(string linkId, ClickTarget target, CancellationToken cancellationToken)
+    {
+        using var ctx = await _contextFactory.CreateDbContextAsync();
+        return new(target,
+          await ctx.Clicks.Where(c => c.LinkId == linkId && c.Target == target).CountAsync(cancellationToken));
     }
 
     private readonly IDbContextFactory<LEKContext> _contextFactory;
