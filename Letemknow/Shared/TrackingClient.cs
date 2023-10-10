@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net;
+using System.Net.Http.Json;
 
 namespace Letemknow.Shared;
 
@@ -7,6 +8,7 @@ public interface ITrackingClient
     Task<IEnumerable<MailLink>?> GetAllLinksAsync(CancellationToken cancellationToken = default);
     Task TrackMailToClickAsync(string linkId, ClickTarget target, CancellationToken cancellationToken = default);
     Task<ClickStatData?> GetLinkStatsAsync(string linkId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<DateClicks>> GetClicksByDateAsync(MailLink link, ClickTarget target, DateOnly startDate, DateOnly endDate, CancellationToken cancellation = default);
 }
 
 public interface ILinkClient
@@ -15,6 +17,9 @@ public interface ILinkClient
     Task<MailLink?> GenerateLink(CancellationToken cancellationToken = default);
     Task SubmitLinkAsync(MailLink link, CancellationToken cancellationToken = default);
 }
+
+public record class DateClicks(DateOnly Date, int Clicks);
+
 
 internal sealed class ApiClient : ITrackingClient, ILinkClient
 {
@@ -50,6 +55,12 @@ internal sealed class ApiClient : ITrackingClient, ILinkClient
 
     public Task SubmitLinkAsync(MailLink link, CancellationToken cancellationToken = default) =>
         _client.PostAsJsonAsync("api/Link", link);
+
+    public async Task<IEnumerable<DateClicks>> GetClicksByDateAsync(MailLink link, ClickTarget target, DateOnly startDate, DateOnly endDate, CancellationToken cancellation = default)
+    {
+        var uri = $"api/Track/{link.Id}/{target}/?startDate={startDate}&endDate={endDate}";
+        return await _client.GetFromJsonAsync<IEnumerable<DateClicks>>(uri, cancellation) ?? Enumerable.Empty<DateClicks>();
+    }
 
     private readonly HttpClient _client;
     private readonly IClientBusiness _clientBusiness;

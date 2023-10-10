@@ -20,8 +20,12 @@
 @code {
     private IEnumerable<MailLink>? _links = Enumerable.Empty<MailLink>();
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        _links = await Client.GetAllLinksAsync();
+        if (firstRender)
+        {
+            _links = await Client.GetAllLinksAsync();
+            StateHasChanged();
+        }
     }
 }

@@ -33,6 +33,21 @@ public class TrackController : ControllerBase
         }
     }
 
+    [HttpGet("{linkId}/{target}")]
+    public async Task<IEnumerable<DateClicks>> GetClicksByDate(string linkId, ClickTarget target, DateTime startDate, DateTime endDate, CancellationToken token)
+    {
+        using var ctx = await _contextFactory.CreateDbContextAsync(token);
+        return (await ctx.Clicks
+            .Where(c => c.LinkId == linkId
+                                && c.Target == target)
+                                //&& c.Timestamp >= startDate
+                                //&& c.Timestamp <= endDate)
+            .ToListAsync())
+            .GroupBy(c => c.Timestamp.Date)
+            .Select(g => new DateClicks(DateOnly.FromDateTime(g.Key), g.Count()))
+            .ToList();
+    }
+
     [HttpGet("{linkId}")]
     public async Task<ClickStatData> GetLinkStats(string linkId, CancellationToken cancellationToken)
     {

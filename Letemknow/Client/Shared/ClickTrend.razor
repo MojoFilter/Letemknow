@@ -1,0 +1,73 @@
+﻿@using System.Reactive.Linq;
+@inject ITrackingClient Client
+<LineChart @ref="lineChart" Width="800" Class="mb-4" />
+
+@code {
+
+    [Parameter]
+    public MailLink Link { get; set; }
+
+    private LineChart lineChart = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        int domainWidthDays = 14;
+        if (firstRender)
+        {
+            var rnd = Random.Shared;
+            var colors = ColorBuilder.CategoricalSixColors;
+            DateOnly startDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-(domainWidthDays-1)));
+
+            var chartData = new ChartData()
+                {
+                    Labels = Enumerable.Range(0, domainWidthDays)
+                                       .Select(i => startDate.AddDays(i))
+                                       .Select(d => d.ToShortDateString())
+                                       .ToList(),
+                    Datasets = (await Enum.GetValues<ClickTarget>()
+                                       .ToObservable()
+                                        .SelectMany(async ct =>
+                                            {
+                                                var points = await Client.GetClicksByDateAsync(
+                                                  Link,
+                                                  ct,
+                                                  startDate,
+                                                  startDate.AddDays(domainWidthDays));
+                                                return (Title: ct.Title(), Points: points);
+                                            })
+                                        .Select((data, i) => new LineChartDataset()
+                                        {
+                                            Label = data.Title,
+                                            Data = Enumerable.Range(0, domainWidthDays)
+                                                             .Select(i => startDate.AddDays(i))
+                                                             .Select(d => data.Points.Where(p => p.Date == d).Select(p => (double)p.Clicks).FirstOrDefault())
+                                                             .ToList(),
+                                            BackgroundColor = new() { colors[i] },
+                                            BorderColor = new() { colors[i] },
+                                            BorderWidth = new() { 2 },
+                                            HoverBorderWidth = new() { 4 },
+                                            PointBackgroundColor = new() { colors[i] },
+                                            PointRadius = new() { 0 },
+                                            PointHoverRadius = new() { 4 }
+                                        })
+                                            .Cast<IChartDataset>()
+                                            .ToList()).ToList()
+                };
+
+            var opt = new LineChartOptions()
+                {
+                    Responsive = true,
+                    Interaction = new() { Mode = InteractionMode.Index },
+                };
+
+            opt.Scales.Y.Title!.Text = "Clicks";
+            opt.Scales!.Y.Title.Display = true;
+
+            opt.Plugins.Title!.Text = "Clicks By Email Type";
+            opt.Plugins.Title!.Display = true;
+
+            await lineChart.InitializeAsync(chartData, opt);
+
+        }
+    }
+}
