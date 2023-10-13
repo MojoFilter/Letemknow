@@ -1,0 +1,24 @@
+﻿<table class="table">
+    <thead class="table-light">
+        <tr>
+            <th scope="col">Link Type</th>
+            <th scope="col">Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Stats?.TargetClicks is IEnumerable<TargetClickCount> clicks)
+        {
+            @foreach (var row in clicks)
+            {
+                <tr><td>@row.Target.Title()</td><td>@row.Clicks</td></tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public ClickStatData? Stats { get; set; }
+
+}

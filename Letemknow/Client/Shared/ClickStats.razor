@@ -3,20 +3,11 @@
     Total Clicks: @_data?.TotalClicks
 </div>
 <ClickTrend Link="@MailLink" />
-<table>
-    <tr>
-        <th scope="col">Link Type</th>
-        <th scope="col">Count</th>
-    </tr>
-    @if (_data?.TargetClicks is not null)
-    {
-        @foreach (var row in _data.TargetClicks)
-        {
-            <tr><td>@row.Target.Title()</td><td>@row.Clicks</td></tr>
-        }
-
-    }
-</table>
+<div class="row">
+    <div class="col-6">
+        <ClickTargetBreakdown Stats="@_data" />
+    </div>
+</div>
 @code {
     [Parameter]
     public MailLink? MailLink { get; set; }

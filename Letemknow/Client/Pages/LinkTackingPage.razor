@@ -6,20 +6,24 @@
     <h3>@_link.Title</h3>
     <ClickStats MailLink="@_link" />
 
-    <table>
-        <tr>
-        <th>Recipient</th>
-        <td>@_link.Recipient</td>
-    </tr>
-    <tr>
-        <th>Subject</th>
-        <td>@_link.Subject</td>
-    </tr>
-    <tr>
-        <th>Body</th>
-        <td>@_link.Body</td>
-    </tr>
-    </table>
+    <div class="row">
+        <div class="col-8">
+            <table class="table">
+                <tr>
+                    <th scope="row">Recipient</th>
+                    <td>@_link.Recipient</td>
+                </tr>
+                <tr>
+                    <th scope="row">Subject</th>
+                    <td>@_link.Subject</td>
+                </tr>
+                <tr>
+                    <th scope="row" style="vertical-align: text-top">Body</th>
+                    <td>@_link.Body</td>
+                </tr>
+            </table>
+       </div>
+    </div>
 
     <MailLinkSet MailLink="@_link" />
 }

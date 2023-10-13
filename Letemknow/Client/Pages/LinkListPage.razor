@@ -18,13 +18,13 @@
     }
 </div>
 @code {
-    private IEnumerable<MailLink>? _links = Enumerable.Empty<MailLink>();
+    private IEnumerable<MailLink> _links = Enumerable.Empty<MailLink>();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            _links = await Client.GetAllLinksAsync();
+            _links = (await Client.GetAllLinksAsync()) ?? Enumerable.Empty<MailLink>();
             StateHasChanged();
         }
     }
