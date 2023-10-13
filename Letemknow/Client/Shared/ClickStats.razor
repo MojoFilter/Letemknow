@@ -2,10 +2,18 @@
 <div>
     Total Clicks: @_data?.TotalClicks
 </div>
-<ClickTrend Link="@MailLink" />
-<div class="row">
+<Card Class="mb-4">
+    <CardBody>
+        <ClickTrend Link="@MailLink" />
+    </CardBody>
+</Card>
+<div class="row mb-4">
     <div class="col-6">
-        <ClickTargetBreakdown Stats="@_data" />
+        <Card>
+            <CardBody>
+                <ClickTargetBreakdown Stats="@_data" />
+            </CardBody>
+        </Card>
     </div>
 </div>
 @code {

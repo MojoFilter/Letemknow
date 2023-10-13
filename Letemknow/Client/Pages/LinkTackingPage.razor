@@ -5,27 +5,35 @@
 {
     <h3>@_link.Title</h3>
     <ClickStats MailLink="@_link" />
+    <Card Class="mb-4">
+        <CardBody>
+            <div class="row">
+                <div class="col-8">
+                    <table class="table">
+                        <tr>
+                            <th scope="row">Recipient</th>
+                            <td>@_link.Recipient</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Subject</th>
+                            <td>@_link.Subject</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="vertical-align: text-top">Body</th>
+                            <td>@_link.Body</td>
+                        </tr>
+                    </table>
+               </div>
+            </div>
+        </CardBody>
+    </Card>
 
-    <div class="row">
-        <div class="col-8">
-            <table class="table">
-                <tr>
-                    <th scope="row">Recipient</th>
-                    <td>@_link.Recipient</td>
-                </tr>
-                <tr>
-                    <th scope="row">Subject</th>
-                    <td>@_link.Subject</td>
-                </tr>
-                <tr>
-                    <th scope="row" style="vertical-align: text-top">Body</th>
-                    <td>@_link.Body</td>
-                </tr>
-            </table>
-       </div>
-    </div>
-
-    <MailLinkSet MailLink="@_link" />
+    <Card>
+        <CardBody>
+            <CardTitle>Links</CardTitle>
+            <CardText><MailLinkSet MailLink="@_link" /></CardText>
+        </CardBody>
+    </Card>
 }
 
 @code {
