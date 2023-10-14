@@ -1,0 +1,14 @@
+body {
+    background-color: #2a4020;
+    color: #ffd966;
+}
+
+.card {
+    color: #2a4020;
+    padding: .1em;
+}
+
+.btn {
+    background-color: #cfa45f;
+    color: #2a4020;
+}

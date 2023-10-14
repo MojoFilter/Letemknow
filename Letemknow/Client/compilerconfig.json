@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/_variables.css",
+    "inputFile": "wwwroot/css/_variables.scss"
+  },
+  {
+    "outputFile": "../../../../../.nuget/packages/bootstrap.sass/5.3.2/contentFiles/any/any/wwwroot/scss/_variables.css",
+    "inputFile": "../../../../../.nuget/packages/bootstrap.sass/5.3.2/contentFiles/any/any/wwwroot/scss/_variables.scss"
+  }
+]
