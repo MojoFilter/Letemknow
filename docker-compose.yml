@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  lek:
+    build:
+      context: .
+      dockerfile: ./Letemknow/Server/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./db:/app/db
+    

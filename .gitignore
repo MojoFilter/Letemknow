@@ -361,6 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
 /Letemknow/Server/lek.db
 /Letemknow/Server/lek.db-shm
 /Letemknow/Server/lek.db-wal
+/db/

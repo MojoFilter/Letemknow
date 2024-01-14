@@ -4,6 +4,11 @@
 
 <h2>@mailLink?.Title</h2>
 <h3>@mailLink?.Description</h3>
+
+<p>To: @mailLink?.Recipient</p>
+<p>Subject: @mailLink?.Subject</p>
+<p>Body: @mailLink?.Body</p>
+
 <MailLinkSet MailLink="@mailLink" />
 
 @code {
