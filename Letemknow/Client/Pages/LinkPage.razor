@@ -27,6 +27,6 @@
         this.mailLink = await Client.GetLinkAsync(LinkId);
     }
 
-    private string Link => $"{NavigationManager.BaseUri}/{LinkId}";
+    private string Link => $"{NavigationManager.BaseUri}{LinkId}";
 
 }

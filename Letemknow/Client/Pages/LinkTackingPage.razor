@@ -1,6 +1,7 @@
 ﻿@page "/{LinkId}/track"
 @using Letemknow.Shared;
-@inject ILinkClient Client
+@inject ILinkClient Client;
+@inject NavigationManager NavigationManager;
 @if (_link is { })
 {
     <h3>@_link.Title</h3>
@@ -32,6 +33,7 @@
         <CardBody>
             <CardTitle>Links</CardTitle>
             <CardText><MailLinkSet MailLink="@_link" /></CardText>
+            <CardText><QRCode Link="@Link" /></CardText>
         </CardBody>
     </Card>
 }
@@ -46,4 +48,7 @@
     {
         _link = await Client.GetLinkAsync(LinkId);
     }
+
+    // Make a string to return the host uri for the current page
+    private string Link => $"{NavigationManager.BaseUri}{LinkId}";
 }
