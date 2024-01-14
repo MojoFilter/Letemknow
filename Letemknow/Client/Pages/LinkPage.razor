@@ -1,6 +1,7 @@
 ﻿@page "/{linkId}"
 @using Letemknow.Shared;
 @inject ILinkClient Client;
+@inject NavigationManager NavigationManager;
 
 <h2>@mailLink?.Title</h2>
 <h3>@mailLink?.Description</h3>
@@ -8,6 +9,10 @@
 <p>To: @mailLink?.Recipient</p>
 <p>Subject: @mailLink?.Subject</p>
 <p>Body: @mailLink?.Body</p>
+
+<p>QR Code:
+    <QRCode Link="@Link" />
+<br></p>
 
 <MailLinkSet MailLink="@mailLink" />
 
@@ -21,4 +26,7 @@
     {
         this.mailLink = await Client.GetLinkAsync(LinkId);
     }
+
+    private string Link => $"{NavigationManager.BaseUri}/{LinkId}";
+
 }
