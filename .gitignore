@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /Letemknow/Server/lek.db-shm
 /Letemknow/Server/lek.db-wal
 /db/
+/postgres/
