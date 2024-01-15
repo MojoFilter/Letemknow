@@ -3,14 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Create a folder for the database
-Directory.CreateDirectory("db");
-
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddDbContextFactory<LEKContext>(opt => opt.UseSqlite("Data Source=db/lek.db"));
+builder.Services.AddDbContextFactory<LEKContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
 builder.Services.AddTransient<IDeviceDetectorFactory, DeviceDetectorFactory>()
                 .AddTransient<ITestDataGenerator, TestDataGenerator>();
 var app = builder.Build();
